@@ -1,0 +1,136 @@
+/* =====================================================================
+   ESTILOS COMPARTIDOS — tokens, recibo de pedido, botones, toast
+   ===================================================================== */
+:root {
+  --brand: #e5295f;
+  --brand-dark: #c01848;
+  --brand-soft: #fde8ef;
+  --ice: #0fb5d6;
+  --ice-soft: #e2f7fb;
+  --ok: #15a35a;
+  --ok-soft: #e3f6ec;
+  --warn: #d97a06;
+  --warn-soft: #fff3df;
+  --danger: #d92d20;
+  --danger-soft: #fdeceb;
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --text: #1b1d29;
+  --muted: #6b7086;
+  --line: #e6e8ef;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 2px 10px rgba(20, 24, 50, .07);
+  --shadow-lg: 0 12px 40px rgba(20, 24, 50, .18);
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+}
+img { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+[hidden] { display: none !important; }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 20px;
+  border: 0; border-radius: 999px;
+  font-weight: 600; font-size: 1rem;
+  background: var(--brand); color: #fff;
+  transition: background .15s, transform .08s;
+  text-decoration: none;
+}
+.btn:active:not(:disabled) { transform: scale(.97); }
+.btn:hover:not(:disabled) { background: var(--brand-dark); }
+.btn-block { width: 100%; }
+.btn-lg { min-height: 58px; font-size: 1.1rem; }
+.btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--line); }
+.btn-ghost:hover:not(:disabled) { background: #eef0f5; }
+.btn-ok { background: var(--ok); }
+.btn-ok:hover:not(:disabled) { background: #0e8a4b; }
+.btn-danger { background: var(--danger-soft); color: var(--danger); }
+.btn-danger:hover:not(:disabled) { background: #fbd9d6; }
+.btn-sm { min-height: 38px; padding: 0 14px; font-size: .9rem; }
+
+.spinner {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.4); border-top-color: #fff;
+  animation: spin .7s linear infinite;
+}
+.spinner.dark { border-color: rgba(0,0,0,.12); border-top-color: var(--brand); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Recibo / detalle de pedido ---------- */
+.rx-item { padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.rx-item:last-child { border-bottom: 0; }
+.rx-item-head { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+.rx-size { display: inline-block; padding: 1px 8px; border-radius: 999px; background: var(--brand); color: #fff; font-size: .8em; vertical-align: middle; }
+.rx-unit { background: var(--bg); border-radius: var(--radius-sm); padding: 8px 12px; margin: 6px 0; }
+.rx-unit-title { font-weight: 600; font-size: .85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+.rx-row { display: flex; justify-content: space-between; gap: 12px; font-size: .95rem; }
+.rx-row span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rx-top { color: var(--muted); }
+.rx-unit-total { font-weight: 600; border-top: 1px solid var(--line); margin-top: 4px; padding-top: 4px; }
+.rx-subtotal { font-weight: 700; margin-top: 6px; }
+.rx-mix { font-weight: 700; color: var(--ice); }
+.rx-sides .rx-row { padding: 2px 0; }
+.rx-each { color: var(--muted); font-weight: 500; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 1000;
+  transform: translate(-50%, 140%);
+  display: flex; align-items: center; gap: 14px;
+  max-width: calc(100vw - 32px);
+  padding: 12px 18px; border-radius: 14px;
+  background: #1b1d29; color: #fff; box-shadow: var(--shadow-lg);
+  font-size: .95rem;
+  transition: transform .25s ease;
+  pointer-events: none;
+}
+.toast button { pointer-events: auto; }
+body.has-cartbar .toast { bottom: calc(86px + env(safe-area-inset-bottom)); }
+.toast.show { transform: translate(-50%, 0); }
+.toast-error { background: var(--danger); }
+.toast-ok { background: #0e7d45; }
+.toast button { background: none; border: 0; color: #ffd166; font-weight: 700; padding: 4px; }
+
+/* ---------- Error / configuración ---------- */
+.fatal { max-width: 460px; margin: 15vh auto; padding: 24px; text-align: center; }
+.fatal-icon { font-size: 3rem; }
+.fatal code { background: #eceef4; padding: 2px 6px; border-radius: 6px; }
+
+.loading-screen { display: grid; place-items: center; min-height: 60vh; }
+
+/* ---------- Inicio de sesión (admin y parqueadero) ---------- */
+.auth-screen {
+  position: fixed; inset: 0; z-index: 500; overflow-y: auto;
+  display: grid; place-items: center; padding: 20px 16px;
+  background: linear-gradient(160deg, #1b1d29 0%, #2a2d42 100%);
+}
+.auth-card {
+  width: 100%; max-width: 400px; background: var(--surface); border-radius: 20px;
+  box-shadow: var(--shadow-lg); padding: 28px 24px; display: flex; flex-direction: column; gap: 14px;
+}
+.auth-logo { font-size: 2.6rem; text-align: center; line-height: 1; }
+.auth-card h1 { margin: 0; text-align: center; font-size: 1.4rem; }
+.auth-sub { margin: -6px 0 4px; text-align: center; color: var(--muted); font-size: .9rem; }
+.auth-field { display: flex; flex-direction: column; gap: 6px; }
+.auth-field span { font-size: .82rem; font-weight: 700; color: var(--muted); }
+.auth-field input {
+  min-height: 48px; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--line);
+  background: #fff; font-size: 1rem;
+}
+.auth-field input:focus { outline: none; border-color: var(--brand); }
+.auth-error { margin: 0; background: var(--danger-soft); color: var(--danger); border-radius: 10px; padding: 10px 12px; font-weight: 600; font-size: .9rem; }
